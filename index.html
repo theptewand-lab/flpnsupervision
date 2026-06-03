@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ระบบนิเทศชั้นเรียน | กลุ่มสาระการเรียนรู้ภาษาต่างประเทศ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand-block">
+          <span class="brand-mark">PN</span>
+          <div>
+            <p class="brand-kicker">โรงเรียนผดุงนารี</p>
+            <h1>ระบบนิเทศชั้นเรียน</h1>
+          </div>
+        </div>
+
+        <nav class="nav-tabs" aria-label="เมนูหลัก">
+          <button class="nav-tab active" type="button" data-tab="form">
+            <span aria-hidden="true">✎</span>
+            <span>แบบบันทึก</span>
+          </button>
+          <button class="nav-tab" type="button" data-tab="dashboard">
+            <span aria-hidden="true">▦</span>
+            <span>Dashboard</span>
+          </button>
+          <button class="nav-tab" type="button" data-tab="reports">
+            <span aria-hidden="true">▤</span>
+            <span>รายงานรายบุคคล</span>
+          </button>
+          <button class="nav-tab" type="button" data-tab="settings">
+            <span aria-hidden="true">⚙</span>
+          <span>ที่เก็บออนไลน์</span>
+          </button>
+        </nav>
+
+        <div class="server-status" id="serverStatus">
+          <span class="status-dot"></span>
+          <span>กำลังตรวจที่เก็บข้อมูล</span>
+        </div>
+      </aside>
+
+      <main class="main-panel">
+        <section class="toolbar">
+          <div>
+            <p class="section-kicker">กลุ่มสาระการเรียนรู้ภาษาต่างประเทศ</p>
+            <h2 id="pageTitle">แบบบันทึกการนิเทศการจัดการเรียนรู้</h2>
+          </div>
+          <div class="toolbar-actions">
+            <button class="ghost-button" id="exportCsvBtn" type="button">ส่งออก CSV</button>
+            <button class="primary-button" id="newRecordBtn" type="button">บันทึกใหม่</button>
+          </div>
+        </section>
+
+        <section class="tab-panel active" id="formPanel">
+          <form id="supervisionForm" class="record-form">
+            <section class="form-section">
+              <div class="section-heading">
+                <span class="step-badge">1</span>
+                <div>
+                  <h3>ข้อมูลทั่วไป</h3>
+                  <p>รายละเอียดการนิเทศ</p>
+                </div>
+              </div>
+              <div class="form-grid">
+                <label>
+                  <span>ชื่อครูผู้สอน</span>
+                  <input name="teacherName" list="teacherOptions" required autocomplete="off" placeholder="เลือกหรือพิมพ์ชื่อครู" />
+                  <datalist id="teacherOptions"></datalist>
+                </label>
+                <label>
+                  <span>กลุ่มสาระการเรียนรู้</span>
+                  <input name="learningArea" required value="ภาษาต่างประเทศ" />
+                </label>
+                <label>
+                  <span>รายวิชา</span>
+                  <input name="course" required />
+                </label>
+                <label>
+                  <span>ระดับชั้น</span>
+                  <input name="gradeLevel" required placeholder="เช่น ม.2/4" />
+                </label>
+                <label>
+                  <span>วันที่นิเทศ</span>
+                  <input name="supervisionDate" type="date" required />
+                </label>
+                <label>
+                  <span>เวลา</span>
+                  <input name="supervisionTime" type="time" required />
+                </label>
+                <label>
+                  <span>ผู้นิเทศ</span>
+                  <input name="supervisorName" required />
+                </label>
+                <label>
+                  <span>ตำแหน่ง</span>
+                  <input name="supervisorPosition" />
+                </label>
+              </div>
+            </section>
+
+            <section class="form-section">
+              <div class="section-heading">
+                <span class="step-badge">2</span>
+                <div>
+                  <h3>การประเมินการจัดการเรียนรู้</h3>
+                  <p>5 ดีเยี่ยม, 4 ดี, 3 พอใช้, 2 ควรปรับปรุง, 1 ต้องปรับปรุงเร่งด่วน</p>
+                </div>
+              </div>
+              <div class="quick-score-panel" aria-label="เลือกคะแนนทุกข้อ">
+                <span>เลือกคะแนนทุกข้อ</span>
+                <div class="quick-score-buttons">
+                  <button type="button" data-score-all="5">5</button>
+                  <button type="button" data-score-all="4">4</button>
+                  <button type="button" data-score-all="3">3</button>
+                  <button type="button" data-score-all="2">2</button>
+                  <button type="button" data-score-all="1">1</button>
+                </div>
+              </div>
+              <div id="assessmentContainer" class="assessment-stack"></div>
+            </section>
+
+            <section class="form-section">
+              <div class="section-heading">
+                <span class="step-badge">3</span>
+                <div>
+                  <h3>สรุปผลการนิเทศ</h3>
+                  <p>จุดเด่น ข้อเสนอแนะ และแนวทางพัฒนาเพิ่มเติม</p>
+                </div>
+              </div>
+              <div class="notes-grid">
+                <label>
+                  <span>จุดเด่น</span>
+                  <textarea name="strengths" rows="6" placeholder="บันทึกจุดเด่นของการจัดการเรียนรู้"></textarea>
+                </label>
+                <label>
+                  <span>ข้อเสนอแนะเพื่อพัฒนา</span>
+                  <textarea name="recommendations" rows="6" placeholder="บันทึกข้อเสนอแนะ"></textarea>
+                </label>
+                <label>
+                  <span>แนวทางพัฒนาเพิ่มเติม</span>
+                  <textarea name="developmentPlan" rows="6" placeholder="บันทึกแนวทางพัฒนา"></textarea>
+                </label>
+              </div>
+            </section>
+
+            <section class="form-section">
+              <div class="section-heading">
+                <span class="step-badge">4</span>
+                <div>
+                  <h3>หลักฐานประกอบการนิเทศ</h3>
+                  <p>อัปโหลดรูปภาพกิจกรรมการเรียนการสอนอย่างน้อย 4 รูป</p>
+                </div>
+              </div>
+              <label class="upload-dropzone" for="evidenceInput">
+                <input id="evidenceInput" name="evidenceImages" type="file" accept="image/*" multiple />
+                <span class="upload-icon" aria-hidden="true">↑</span>
+                <strong>เลือกรูปภาพประกอบ</strong>
+                <small>รองรับ JPG, PNG, WEBP</small>
+              </label>
+              <div id="imagePreview" class="image-preview"></div>
+            </section>
+
+            <section class="summary-bar">
+              <div>
+                <span>คะแนนเฉลี่ย</span>
+                <strong id="liveAverage">0.00</strong>
+              </div>
+              <div>
+                <span>ระดับคุณภาพ</span>
+                <strong id="liveQuality">-</strong>
+              </div>
+              <button class="primary-button" type="submit">บันทึกรายงาน</button>
+            </section>
+          </form>
+        </section>
+
+        <section class="tab-panel" id="dashboardPanel">
+          <div class="metric-grid">
+            <article class="metric-card">
+              <span>จำนวนการนิเทศ</span>
+              <strong id="metricTotal">0</strong>
+            </article>
+            <article class="metric-card">
+              <span>คะแนนเฉลี่ยรวม</span>
+              <strong id="metricAverage">0.00</strong>
+            </article>
+            <article class="metric-card">
+              <span>ครูที่ได้รับนิเทศ</span>
+              <strong id="metricTeachers">0</strong>
+            </article>
+            <article class="metric-card">
+              <span>บันทึกออนไลน์</span>
+              <strong id="metricServer">0</strong>
+            </article>
+          </div>
+
+          <div class="dashboard-grid">
+            <section class="dashboard-section">
+              <div class="compact-heading">
+                <h3>คะแนนเฉลี่ยรายด้าน</h3>
+              </div>
+              <div id="categoryBars" class="bar-list"></div>
+            </section>
+            <section class="dashboard-section">
+              <div class="compact-heading">
+                <h3>สรุประดับคุณภาพ</h3>
+              </div>
+              <div id="qualityChart" class="quality-chart"></div>
+            </section>
+          </div>
+
+          <section class="dashboard-section">
+            <div class="compact-heading">
+              <h3>รายการนิเทศล่าสุด</h3>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>วันที่</th>
+                    <th>ครูผู้สอน</th>
+                    <th>รายวิชา</th>
+                    <th>ระดับชั้น</th>
+                    <th>คะแนน</th>
+                    <th>ระดับ</th>
+                  </tr>
+                </thead>
+                <tbody id="latestTable"></tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+
+        <section class="tab-panel" id="reportsPanel">
+          <div class="report-tools">
+            <label class="search-box">
+              <span>ค้นหา</span>
+              <input id="reportSearch" placeholder="ชื่อครู รายวิชา หรือระดับชั้น" />
+            </label>
+            <button class="danger-button" id="clearDataBtn" type="button">ล้างข้อมูลทั้งหมด</button>
+          </div>
+          <div id="reportCards" class="report-list"></div>
+        </section>
+
+        <section class="tab-panel" id="settingsPanel">
+          <form id="settingsForm" class="settings-form">
+            <section class="form-section">
+              <div class="section-heading">
+                <span class="step-badge">S</span>
+                <div>
+                  <h3>Online Storage</h3>
+                  <p>เมื่อใช้งานออนไลน์บน Netlify ระบบจะเก็บรายงานและรูปภาพด้วย Netlify Blobs</p>
+                </div>
+              </div>
+              <div class="server-storage-card">
+                <div>
+                  <span>ตำแหน่งจัดเก็บ</span>
+                  <strong id="storageLocationLabel">data/supervision-records</strong>
+                </div>
+                <div>
+                  <span>สถานะ</span>
+                  <strong id="serverStorageStatus">กำลังตรวจสอบ</strong>
+                </div>
+              </div>
+              <div class="settings-actions">
+                <button class="ghost-button" id="testServerBtn" type="button">ทดสอบที่เก็บข้อมูล</button>
+              </div>
+            </section>
+          </form>
+
+          <section class="dashboard-section">
+            <div class="compact-heading">
+              <h3>รูปแบบไฟล์ที่บันทึก</h3>
+            </div>
+            <p class="helper-text">
+              แต่ละรายการนิเทศจะมี <code>report.json</code> และโฟลเดอร์ <code>images</code> แยกตามวันที่ ชื่อครู และรหัสรายการ
+            </p>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <dialog id="reportDialog" class="report-dialog">
+      <div class="dialog-actions no-print">
+        <button class="ghost-button" id="printReportBtn" type="button">พิมพ์ / PDF</button>
+        <button class="primary-button" id="closeReportBtn" type="button">ปิด</button>
+      </div>
+      <article id="reportContent" class="print-report"></article>
+    </dialog>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
