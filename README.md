@@ -51,6 +51,9 @@ node server.mjs
    `https://ชื่อเว็บของคุณ.netlify.app/.netlify/functions/supervision-records`
 6. ถ้าถูกต้องควรเห็น JSON ประมาณ:
    `{"ok":true,"records":[]}`
+7. ลองเปิดอีก URL:
+   `https://ชื่อเว็บของคุณ.netlify.app/api/ping`
+8. ถ้ายังได้ Page not found ให้กด `Clear cache and deploy site` ใน Netlify แล้วตรวจว่า deploy log มีคำว่า `Functions bundling` หรือ `functions/supervision-records`
 
 ## ไฟล์ข้อมูล
 

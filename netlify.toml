@@ -6,3 +6,8 @@
   from = "/api/supervision-records"
   to = "/.netlify/functions/supervision-records"
   status = 200
+
+[[redirects]]
+  from = "/api/ping"
+  to = "/.netlify/functions/supervision-records"
+  status = 200
